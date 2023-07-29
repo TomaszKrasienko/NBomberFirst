@@ -12,7 +12,7 @@ public class MovieRepository : IMovieRepository
         _moviesDbContext = moviesDbContext;
     }
     
-    public async Task<Movie?> GetById(Guid id)
+    public async Task<Movie?> GetByIdAsync(Guid id)
     {
         return await _moviesDbContext
             .Movies
@@ -20,7 +20,7 @@ public class MovieRepository : IMovieRepository
             .FirstOrDefaultAsync(x => x.Id == id) ?? null;
     }
 
-    public async Task Add(Movie movie)
+    public async Task AddAsync(Movie movie)
     {
         await _moviesDbContext
             .Movies

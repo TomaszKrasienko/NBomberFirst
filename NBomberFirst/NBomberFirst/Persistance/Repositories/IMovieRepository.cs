@@ -4,6 +4,6 @@ namespace NBomberFirst.Persistance.Repositories;
 
 public interface IMovieRepository
 {
-    Task<Movie?> GetById(Guid id);
-    Task Add(Movie movie);
+    Task<Movie?> GetByIdAsync(Guid id);
+    Task AddAsync(Movie movie);
 }

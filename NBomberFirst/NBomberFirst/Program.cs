@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using NBomberFirst.DTOs;
+using NBomberFirst.Entities;
 using NBomberFirst.Persistance;
 using NBomberFirst.Persistance.Repositories;
 
@@ -9,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddDbContext<MoviesDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString"));
@@ -24,30 +29,19 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
+app.MapGet("/getById/{movieId}", async ([FromRoute]Guid movieId, IMovieRepository movieRepository) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    var movie = await movieRepository.GetByIdAsync(movieId);
+    return movie is not null ? Results.Ok(movie) : Results.NotFound();
+});
 
-app.MapGet("/weatherforecast", () =>
+app.MapPost("/add", async ([FromBody]MovieDto movieDto, IMovieRepository movieRepository, IMapper mapper) =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+    Movie movie = mapper.Map<Movie>(movieDto);
+    await movieRepository.AddAsync(movie);
+    return Results.Ok();
+});
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
 
