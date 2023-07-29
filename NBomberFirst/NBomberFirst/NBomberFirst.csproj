@@ -19,8 +19,5 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.9" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Persistance\Repositories" />
-  </ItemGroup>
 
 </Project>
