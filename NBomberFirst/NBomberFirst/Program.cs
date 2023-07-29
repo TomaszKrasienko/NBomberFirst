@@ -29,14 +29,16 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/getById/{movieId}", async ([FromRoute]Guid movieId, IMovieRepository movieRepository) =>
+app.MapGet("/getById/{movieId}", async ([FromRoute]Guid movieId, ILogger<Program> logger, IMovieRepository movieRepository) =>
 {
+    logger.LogInformation("Executing get by id");
     var movie = await movieRepository.GetByIdAsync(movieId);
     return movie is not null ? Results.Ok(movie) : Results.NotFound();
 });
 
-app.MapPost("/add", async ([FromBody]MovieDto movieDto, IMovieRepository movieRepository, IMapper mapper) =>
+app.MapPost("/add", async([FromBody]MovieDto movieDto, ILogger<Program> logger, IMovieRepository movieRepository, IMapper mapper) =>
 {
+    logger.LogInformation("Executing add");
     Movie movie = mapper.Map<Movie>(movieDto);
     await movieRepository.AddAsync(movie);
     return Results.Ok();
