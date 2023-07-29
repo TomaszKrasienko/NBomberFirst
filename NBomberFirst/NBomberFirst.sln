@@ -5,6 +5,8 @@ VisualStudioVersion = 25.0.1705.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBomberFirst", "NBomberFirst\NBomberFirst.csproj", "{9B92C84E-42B1-4EA8-A867-B59E430CC29A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBomberFirst.PerformanceTests", "NBomberFirst.PerformanceTests\NBomberFirst.PerformanceTests.csproj", "{968259B7-6D38-46F9-8FA2-5AAAB9D21946}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{9B92C84E-42B1-4EA8-A867-B59E430CC29A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B92C84E-42B1-4EA8-A867-B59E430CC29A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B92C84E-42B1-4EA8-A867-B59E430CC29A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{968259B7-6D38-46F9-8FA2-5AAAB9D21946}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{968259B7-6D38-46F9-8FA2-5AAAB9D21946}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{968259B7-6D38-46F9-8FA2-5AAAB9D21946}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{968259B7-6D38-46F9-8FA2-5AAAB9D21946}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
