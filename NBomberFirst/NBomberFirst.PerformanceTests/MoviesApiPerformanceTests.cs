@@ -20,8 +20,6 @@ public class MoviesApiPerformanceTests
     public async Task GetById_ShouldHandle_AtLeast100RequestsPerSecond()
     {
         const string url = "http://localhost:5096/getById/f8924cec-b5df-4d3c-27d1-08db9022cbd7";
-        HttpClient httpClient = new HttpClient();
-
         var getMoviesStep = Step.Create("get movie", HttpClientFactory.Create(), async context =>
         {
             try
@@ -46,13 +44,13 @@ public class MoviesApiPerformanceTests
             .RegisterScenarios(scenario)
             .Run();
 
-        var scenarioStats = stats.ScenarioStats[0];
+        var scenarioStats = stats.ScenarioStats[0]; //because it's our first step
         
-        _testOutputHelper.WriteLine($"OK: {stats.OkCount}, FAILED: {stats.FailCount}");
-        
+        _testOutputHelper.WriteLine($"OK: {stats.OkCount}, FAILED: {stats.FailCount}"); //output to console base stats
         
         stats.OkCount.Should().BeGreaterOrEqualTo(durationSeconds * expectedRequestPerSecond);
         stats.FailCount.Should().Be(0);
         scenarioStats.LatencyCount.LessOrEq800.Should().BeGreaterOrEqualTo(durationSeconds * expectedRequestPerSecond);
+        
     }
 }
